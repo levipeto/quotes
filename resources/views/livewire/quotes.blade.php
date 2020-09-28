@@ -3,6 +3,12 @@
         <h1>Quotes</h1>
     </div>
     <div>
+        <forn wire:submit.prevent="getRandomQuote">
+            <input wire:click="getRandomQuote" type="submit" value="Random">
+        </forn>
+        {{ $randomQuote}}
+    </div>
+    <div>
         <form wire:submit.prevent="addQuote">
             <div>
                 <label for="author">Author</label>

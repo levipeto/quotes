@@ -10,6 +10,7 @@ class Quotes extends Component
     public $search = '';
     public $author;
     public $text;
+    public $randomQuote = '';
 
     public function render()
     {
@@ -40,5 +41,14 @@ class Quotes extends Component
 
         $this->author = "";
         $this->text = "";
+    }
+
+    /**
+     * @return void
+     */
+    public function getRandomQuote()
+    {
+        $quote = Quote::all()->random();
+        $this->randomQuote = $quote->text . ' - ' . $quote->author;
     }
 }
