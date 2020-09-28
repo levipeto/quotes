@@ -1,3 +1,3 @@
 <div>
-    <h1>Quotes</h1>
+    {{ $slot }}
 </div>
