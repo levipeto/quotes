@@ -10,13 +10,13 @@ I created tests, that can be run with phpunit.
 I used dispatchBrowserEvent for sending notifications and the quotes to the modals.
 
 ## Stack
-PHP 7.4
-Laravel 8.6.0
-Laravel - LiveWire 2.0
-AlpineJS
-Tailwind UI
-SQLite
-Phpunit 8.5.2
+- PHP 7.4
+- Laravel 8.6.0
+- Laravel - LiveWire 2.0
+- AlpineJS
+- Tailwind UI
+- SQLite
+- Phpunit 8.5.2
 
 ## Installation
 
