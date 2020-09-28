@@ -20,10 +20,10 @@ I used dispatchBrowserEvent for sending notifications and the quotes to the moda
 
 ## Installation
 
-git clone git@github.com:levipeto/quotes.git
-cd quotes
-composer install
-cp .env.example .env
-touch database/database.sqlite
-!!! "copy database.sqlite file's absolute path into the .env" like DB_DATABASE=absolutpath/database/database.sqlite
-php artisan migrate
+- git clone git@github.com:levipeto/quotes.git
+- cd quotes
+- composer install
+- cp .env.example .env
+- touch database/database.sqlite
+- !!! "copy database.sqlite file's absolute path into the .env" like DB_DATABASE=absolutpath/database/database.sqlite
+- php artisan migrate
