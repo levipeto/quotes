@@ -76,7 +76,6 @@
                                                                type="submit"
                                                                value="Random Quote">
                                                     </forn>
-                                                    {{ $randomQuote}}
                                                 </div>
 
                                                 <div>
@@ -86,17 +85,11 @@
                                                                type="submit"
                                                                value="Quote of the Day">
                                                     </forn>
-                                                    {{ $quoteOfTheDay}}
                                                 </div>
 
                                                 <div>
                                                     <form wire:submit.prevent="addQuote">
                                                         <div class="mt-6">
-                                                            <div>
-                                                                @if ($quoteAdded)
-                                                                    <div>Quote has been added</div>
-                                                                @endif
-                                                            </div>
                                                             <label for="author"
                                                                    class="block text-sm font-medium leading-5 text-gray-700">
                                                                 Author</label>
@@ -212,6 +205,8 @@
             </div>
 
             <x-notification />
+
+            <x-modal />
         </div>
     </div>
     </body>

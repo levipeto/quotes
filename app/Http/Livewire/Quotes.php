@@ -13,9 +13,6 @@ class Quotes extends Component
     public $search = '';
     public $author;
     public $text;
-    public $randomQuote = '';
-    public $quoteOfTheDay = '';
-    public $quoteAdded = false;
 
     public function render()
     {
@@ -59,7 +56,8 @@ class Quotes extends Component
 
         if ($quotes->count()){
             $randomQuote = $quotes->random();
-            $this->randomQuote = $randomQuote->text . ' - ' . $randomQuote->author;
+            $randomQuote = 'Random quote: "' . $randomQuote->text . '" - ' . $randomQuote->author;
+            $this->dispatchBrowserEvent('modal', [$randomQuote]);
         } else {
             $this->dispatchBrowserEvent('notify', ['There aren\'t any quotes to choose from!']);
         }
@@ -75,7 +73,8 @@ class Quotes extends Component
         $quote = Quote::find($today);
 
         if (($quote) != null){
-            $this->quoteOfTheDay = "The quote of the day is " . $quote->text . ' - ' . $quote->author;
+            $quoteOfTheDay = 'The quote of the day is: "' . $quote->text . '" - ' . $quote->author;
+            $this->dispatchBrowserEvent('modal', [$quoteOfTheDay]);
         } else {
             $this->dispatchBrowserEvent('notify', ['There is no quote for today!']);
         }
