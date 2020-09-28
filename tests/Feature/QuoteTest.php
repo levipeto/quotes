@@ -46,4 +46,29 @@ class QuoteTest extends TestCase
         $this->assertTrue(Quote::whereAuthor('Foo')->exists());
         $this->assertTrue(Quote::whereText('Bar')->exists());
     }
+
+    /**
+     * @test
+     */
+    function author_is_required()
+    {
+        Livewire::test('quotes')
+            ->set('author', '')
+            ->set('text', 'Bar')
+            ->call('addQuote')
+            ->assertHasErrors(['author' => 'required']);
+
+    }
+
+    /**
+     * @test
+     */
+    function text_is_required()
+    {
+        Livewire::test('quotes')
+            ->set('author', 'Foo')
+            ->set('text', '')
+            ->call('addQuote')
+            ->assertHasErrors(['text' => 'required']);
+    }
 }
