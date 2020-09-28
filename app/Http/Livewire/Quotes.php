@@ -21,7 +21,7 @@ class Quotes extends Component
             'livewire.quotes', [
             'quotes' => Quote::where('author', 'like', '%' . $this->search . '%')
                 ->Orwhere('text', 'like', '%' . $this->search . '%')
-                ->paginate(10)
+                ->paginate(7)
         ])->layout('layouts.base');
     }
 
@@ -51,8 +51,15 @@ class Quotes extends Component
      */
     public function getRandomQuote()
     {
-        $quote = Quote::all()->random();
-        $this->randomQuote = $quote->text . ' - ' . $quote->author;
+        $quotes = Quote::all();
+
+        if ($quotes->count()){
+            $randomQuote = $quotes->random();
+            $this->randomQuote = $randomQuote->text . ' - ' . $randomQuote->author;
+        } else {
+            session()->flash('message', "There aren't any quotes to choose from!");
+        }
+
     }
 
     /**
@@ -66,7 +73,7 @@ class Quotes extends Component
         if (($quote) != null){
             $this->quoteOfTheDay = "The quote of the day is " . $quote->text . ' - ' . $quote->author;
         } else {
-            session()->flash('message', 'There is no quote for today');
+            session()->flash('message', 'There is no quote for today!');
         }
     }
 }
