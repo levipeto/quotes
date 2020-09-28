@@ -6,6 +6,7 @@ use App\Models\Quote;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class QuoteTest extends TestCase
@@ -30,5 +31,19 @@ class QuoteTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee($quote[0]->author);
+    }
+
+    /**
+     * @test
+     */
+    function can_search_quotes()
+    {
+        Livewire::test('quotes')
+            ->set('author', 'Foo')
+            ->set('text', 'Bar')
+            ->call('addQuote');
+
+        $this->assertTrue(Quote::whereAuthor('Foo')->exists());
+        $this->assertTrue(Quote::whereText('Bar')->exists());
     }
 }
