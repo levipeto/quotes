@@ -72,29 +72,4 @@ class QuoteTest extends TestCase
             ->call('addQuote')
             ->assertHasErrors(['text' => 'required']);
     }
-
-    /**
-     * @test
-     */
-    function shows_error_if_there_is_no_quote_for_the_day()
-    {
-        Livewire::test('quotes')
-            ->call('getQuoteOfTheDay')
-            ->assertSee('There is no quote for today');
-    }
-
-    /**
-     * @test
-     */
-    function no_error_if_there_is_a_quote_for_the_day()
-    {
-        Quote::factory()->count(40)->create();
-        $today = Carbon::now()->day;
-        $quoteOfTheDay = Quote::find($today);
-
-
-        Livewire::test('quotes')
-            ->call('getQuoteOfTheDay')
-            ->assertSee("The quote of the day is " . $quoteOfTheDay->text . ' - ' . $quoteOfTheDay->author);
-    }
 }

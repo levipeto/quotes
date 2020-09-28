@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Quote;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Livewire\Component;
 use function PHPUnit\Framework\isEmpty;
 
@@ -14,6 +15,7 @@ class Quotes extends Component
     public $text;
     public $randomQuote = '';
     public $quoteOfTheDay = '';
+    public $quoteAdded = false;
 
     public function render()
     {
@@ -44,6 +46,8 @@ class Quotes extends Component
 
         $this->author = "";
         $this->text = "";
+
+        $this->dispatchBrowserEvent('notify', ['Quote has been Added']);
     }
 
     /**
@@ -57,7 +61,7 @@ class Quotes extends Component
             $randomQuote = $quotes->random();
             $this->randomQuote = $randomQuote->text . ' - ' . $randomQuote->author;
         } else {
-            session()->flash('message', "There aren't any quotes to choose from!");
+            $this->dispatchBrowserEvent('notify', ['There aren\'t any quotes to choose from!']);
         }
 
     }
@@ -73,7 +77,23 @@ class Quotes extends Component
         if (($quote) != null){
             $this->quoteOfTheDay = "The quote of the day is " . $quote->text . ' - ' . $quote->author;
         } else {
-            session()->flash('message', 'There is no quote for today!');
+            $this->dispatchBrowserEvent('notify', ['There is no quote for today!']);
         }
+    }
+
+    /**
+     * @return void
+     */
+    public function seedDB()
+    {
+        Artisan::call('db:seed');
+    }
+
+    /**
+     * @return void
+     */
+    public function deleteDB()
+    {
+        Artisan::call('migrate:fresh');
     }
 }

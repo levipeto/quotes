@@ -4,6 +4,7 @@
         <div>
             <!-- Background color split screen for large screens -->
             <div class="fixed top-0 left-0 w-full  h-full bg-white"></div>
+
             <div class="relative min-h-screen flex flex-col">
                 <!-- Navbar -->
                 <nav class="flex-shrink-0 bg-indigo-700">
@@ -87,9 +88,15 @@
                                                     </forn>
                                                     {{ $quoteOfTheDay}}
                                                 </div>
+
                                                 <div>
                                                     <form wire:submit.prevent="addQuote">
                                                         <div class="mt-6">
+                                                            <div>
+                                                                @if ($quoteAdded)
+                                                                    <div>Quote has been added</div>
+                                                                @endif
+                                                            </div>
                                                             <label for="author"
                                                                    class="block text-sm font-medium leading-5 text-gray-700">
                                                                 Author</label>
@@ -112,12 +119,32 @@
                                                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                                                             @error('text') <span>{{ $message }}</span> @enderror
                                                         </div>
+
                                                         <div class="mt-6">
-                                                        <input type="submit"
-                                                               value="Add a Quote"
-                                                               class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                                                            <input type="submit"
+                                                                   value="Add a Quote"
+                                                                   class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
                                                         </div>
                                                     </form>
+
+                                                </div>
+<hr/>
+                                                <div>
+                                                    <forn wire:submit.prevent="seedDB">
+                                                        <input wire:click="seedDB"
+                                                               class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
+                                                               type="submit"
+                                                               value="Seed the Database">
+                                                    </forn>
+                                                </div>
+
+                                                <div>
+                                                    <forn wire:submit.prevent="deleteDB">
+                                                        <input wire:click="deleteDB"
+                                                               class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
+                                                               type="submit"
+                                                               value="Empty the Database">
+                                                    </forn>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,13 +159,6 @@
                                 class="pl-4 pr-6 pt-4 pb-4 border-b border-t border-gray-200 sm:pl-6 lg:pl-8 xl:pl-6 xl:pt-6 xl:border-t-0">
                                 <div class="flex items-center">
                                     <h1 class="flex-1 text-lg leading-7 font-medium">Quotes</h1>
-                                    <div>
-                                        @if (session()->has('message'))
-                                            <div class="alert">
-                                                {{ session('message') }}
-                                            </div>
-                                        @endif
-                                    </div>
                                 </div>
                             </div>
                             {{ $quotes->links() }}
@@ -151,7 +171,7 @@
                                             <div class="min-w-0 space-y-3">
                                                 <div class="flex items-center space-x-3">
                                                     <span aria-label="Running"
-                                                        class="h-4 w-4 bg-green-100 rounded-full flex items-center justify-center">
+                                                          class="h-4 w-4 bg-green-100 rounded-full flex items-center justify-center">
                                                         <span class="h-2 w-2 bg-green-400 rounded-full"></span>
                                                     </span>
 
@@ -171,6 +191,7 @@
                                                     </div>
                                                 </a>
                                             </div>
+
                                             <div class="sm:hidden">
                                                 <svg class="h-5 w-5 text-gray-400"
                                                      x-description="Heroicon name: chevron-right" viewBox="0 0 20 20"
@@ -190,6 +211,7 @@
                 </div>
             </div>
 
+            <x-notification />
         </div>
     </div>
     </body>
